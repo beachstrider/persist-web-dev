@@ -1,24 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 
-function App() {
+import { PublicRoute, PrivateRoute } from './Routes';
+
+import Signin from './pages/Signin';
+import Dashboard from './pages/Dashboard';
+import Project from './pages/Project';
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Routes>
+
+        <Route path="/dashboard" exact element={<Dashboard />} />
+        <Route path="/projects/1" exact element={<Project />} />
+
+        <Route path="/signin" exact element={<Signin />} />
+        <Route path="/" exact element={<Navigate to="/signin" replace={true} />} />
+        
+        <Route path="*" element={<div>Page not found</div>} />
+      </Routes>
+    </Router>
   );
 }
 
