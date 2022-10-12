@@ -4,6 +4,7 @@ import { HomeIcon, MenuAlt1Icon, XIcon, BellIcon } from '@heroicons/react/outlin
 import {
   SearchIcon,
 } from '@heroicons/react/solid'
+import { getAuth, signOut } from 'firebase/auth'
 
 const navigation = [
   { name: 'Home', href: '/dashboard', icon: HomeIcon, current: true },
@@ -12,15 +13,23 @@ const navigation = [
 const userNavigation = [
   { name: 'Your Profile', href: '#' },
   { name: 'Settings', href: '#' },
-  { name: 'Sign out', href: '/signin' },
+  // { name: 'Sign out', href: '/signin' },
 ]
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function Layout({children}) {
+export default function Layout({ children }) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
+
+  const handleSignout = () => {
+    signOut(getAuth()).then(() => {
+      // Sign-out successful.
+    }).catch((error) => {
+      // An error happened.
+    });
+  }
 
   return (
     <div className="h-screen flex overflow-hidden bg-white">
@@ -171,11 +180,11 @@ export default function Layout({children}) {
                       </span>
                     </Menu.Button>
                   </div>
-           
+
                 </>
               )}
             </Menu>
-     
+
             {/* Navigation */}
             <nav className="px-3 mt-6">
               <div className="space-y-1">
@@ -356,19 +365,19 @@ export default function Layout({children}) {
             </div>
           </div>
         </div>
-        
+
         <main className="flex-1 relative z-0 overflow-y-auto focus:outline-none">
           {/* Page title & actions */}
           <div className="border-b border-gray-200 px-4 py-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8">
             <div className="flex-1 min-w-0">
-              <h1 className="text-lg font-medium leading-6 text-gray-900 sm:truncate">Home</h1>
+              <h1 className="text-lg font-medium leading-6 text-gray-900 sm:truncate">Dashboard</h1>
             </div>
             <div className="mt-4 flex sm:mt-0 sm:ml-4">
-            <button className="bg-white p-1 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-              <span className="sr-only">View notifications</span>
-              <BellIcon className="h-6 w-6" aria-hidden="true" />
-            </button>
-              
+              <button className="bg-white p-1 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                <span className="sr-only">View notifications</span>
+                <BellIcon className="h-6 w-6" aria-hidden="true" />
+              </button>
+
 
               <Menu as="div" className="ml-3 relative">
                 {({ open }) => (
@@ -408,18 +417,27 @@ export default function Layout({children}) {
                             )}
                           </Menu.Item>
                         ))}
+                      <Menu.Item>
+                        <a
+                          href="#"
+                          className={'block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100'}
+                          onClick={handleSignout}
+                        >
+                          Sign out
+                        </a>
+                      </Menu.Item>
                       </Menu.Items>
                     </Transition>
                   </>
                 )}
               </Menu>
 
-              
+
             </div>
           </div>
 
           {children}
-          
+
         </main>
       </div>
     </div>
