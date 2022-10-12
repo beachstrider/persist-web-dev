@@ -5,6 +5,7 @@ import {
   SearchIcon,
 } from '@heroicons/react/solid'
 import { getAuth, signOut } from 'firebase/auth'
+import { Link, useNavigate } from 'react-router-dom'
 
 const navigation = [
   { name: 'Home', href: '/dashboard', icon: HomeIcon, current: true },
@@ -22,10 +23,11 @@ function classNames(...classes) {
 
 export default function Layout({ children }) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
+  const navigate = useNavigate()
 
   const handleSignout = () => {
     signOut(getAuth()).then(() => {
-      // Sign-out successful.
+      navigate('/signin')
     }).catch((error) => {
       // An error happened.
     });
@@ -92,9 +94,9 @@ export default function Layout({ children }) {
                 <nav className="px-2">
                   <div className="space-y-1">
                     {navigation.map((item) => (
-                      <a
+                      <Link
                         key={item.name}
-                        href={item.href}
+                        to={item.href}
                         className={classNames(
                           item.current
                             ? 'bg-gray-100 text-gray-900'
@@ -111,7 +113,7 @@ export default function Layout({ children }) {
                           aria-hidden="true"
                         />
                         {item.name}
-                      </a>
+                      </Link>
                     ))}
                   </div>
                   <div className="mt-8">
@@ -189,9 +191,9 @@ export default function Layout({ children }) {
             <nav className="px-3 mt-6">
               <div className="space-y-1">
                 {navigation.map((item) => (
-                  <a
+                  <Link
                     key={item.name}
-                    href={item.href}
+                    to={item.href}
                     className={classNames(
                       item.current ? 'bg-gray-200 text-gray-900' : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50',
                       'group flex items-center px-2 py-2 text-sm font-medium rounded-md'
@@ -206,7 +208,7 @@ export default function Layout({ children }) {
                       aria-hidden="true"
                     />
                     {item.name}
-                  </a>
+                  </Link>
                 ))}
               </div>
             </nav>

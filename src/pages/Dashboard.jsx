@@ -4,6 +4,8 @@ import {
   ChevronRightIcon,
 } from '@heroicons/react/solid'
 import Layout from '../components/layout/'
+import { Link } from 'react-router-dom'
+
 const projects = [
   {
     id: 1,
@@ -105,11 +107,11 @@ export default function Default() {
                         className={'bg-pink-600 flex-shrink-0 w-2.5 h-2.5 rounded-full'}
                         aria-hidden="true"
                       />
-                      <a href="/projects/1" className="truncate hover:text-gray-600">
+                      <Link to="/projects/1" className="truncate hover:text-gray-600">
                         <span>
                           {project.name}
                         </span>
-                      </a>
+                      </Link>
                     </div>
                   </td>
                   

@@ -4,6 +4,7 @@ import {
   ChevronRightIcon,
 } from '@heroicons/react/solid'
 import Layout from '../components/layout'
+import { Link } from 'react-router-dom'
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -113,9 +114,9 @@ export default function Default() {
                 {projectData.map((project, key) => (
                   <tr key={key}>
                     <td className="hidden md:table-cell px-6 py-3 whitespace-nowrap text-sm text-ingido-900">
-                      <a href="/projects/1/condition" className="truncate text-indigo-700 hover:text-gray-600">
+                      <Link to="/projects/1/condition" className="truncate text-indigo-700 hover:text-gray-600">
                         {project.considionId}
-                      </a>
+                      </Link>
                     </td>
                     <td className="hidden md:table-cell px-6 py-3 whitespace-nowrap text-sm text-gray-500">
                       {project.loading}

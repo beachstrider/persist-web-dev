@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import { app } from 'config/firebase';
@@ -12,18 +11,6 @@ import ForgotPassword from 'pages/ForgotPassword';
 import Protected from 'components/protected'
 
 const App = () => {
-  const navigate = useNavigate()
-
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(getAuth(), user => {
-      if (user) {
-        navigate('/dashboard')
-      } else {
-        navigate('/signin')
-      }
-    });
-   return unsubscribe;
-  }, []);
 
   return (
     <RecoilRoot>

@@ -2,9 +2,11 @@ import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 import { XCircleIcon } from '@heroicons/react/solid'
 import { useState } from "react"
 import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 
 export default function Signin() {
   const [ error, setError ] = useState(false)
+  const navigate = useNavigate()
 
   const handleSignin = ({ email, password }) => {
     console.log(email, password)
@@ -12,6 +14,7 @@ export default function Signin() {
       .then((res) => {
         // Signed in 
         console.log('res', res)
+        navigate('/dashboard')
         // ...
       })
       .catch((err) => {
