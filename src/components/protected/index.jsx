@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import { useEffect, useState } from "react";
+import { CgSpinner } from 'react-icons/cg';
 
 const Protected = ({children}) => {
   const navigate = useNavigate()
@@ -20,21 +21,17 @@ const Protected = ({children}) => {
           navigate('/signin')
         }
       }
-
-
-
-      if (user) {
-        navigate('/dashboard')
-        // no error
-      } else {
-        console.log('222')
-
-      }
     });
    return unsubscribe;
   }, [])
 
-  return user ? children : ''
+  return user 
+    ? children 
+    : (
+      <div className="flex justify-center items-center min-h-screen">
+        <CgSpinner size={30} className="animate-spin" />
+    </div>
+    )
 };
 
 export default Protected;
