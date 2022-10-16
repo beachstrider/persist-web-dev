@@ -1,8 +1,10 @@
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
+import { signInWithEmailAndPassword } from 'firebase/auth'
+import { doc, getDoc, setDoc } from "firebase/firestore"
+import { auth, db } from 'config/firebase'
 import { XCircleIcon } from '@heroicons/react/solid'
 import { useState } from "react"
 import { Link } from 'react-router-dom'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'
 
 export default function Signin() {
   const [ error, setError ] = useState(false)
@@ -10,10 +12,22 @@ export default function Signin() {
 
   const handleSignin = ({ email, password }) => {
     console.log(email, password)
-    signInWithEmailAndPassword(getAuth(), email, password)
-      .then((res) => {
+    signInWithEmailAndPassword(auth, email, password)
+      .then(async ({user}) => {
         // Signed in 
-        console.log('res', res)
+        console.log('res', user)
+        const userData = await getDoc(doc(db, "users", user.uid))
+        if(userData.exists()) {
+          console.log("exist:", userData.data())
+        }else{
+          const newUserData = {
+            email: user.email,
+            name: user.displayName ? user.displayName : 'Default User',
+            avatar: null,
+            projects: []
+          }
+          await handleMakeUser(user.uid, newUserData)
+        }
         navigate('/dashboard')
         // ...
       })
@@ -21,6 +35,10 @@ export default function Signin() {
         console.error('err', err)
         setError(true)
       });
+  }
+
+  const handleMakeUser = async (uid, data) => {
+    await setDoc(doc(db, "users", uid), data)
   }
 
   return (

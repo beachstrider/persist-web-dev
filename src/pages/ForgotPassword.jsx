@@ -1,13 +1,14 @@
-import { getAuth, sendPasswordResetEmail } from 'firebase/auth'
+import { sendPasswordResetEmail } from 'firebase/auth'
 import { XCircleIcon, CheckCircleIcon } from '@heroicons/react/solid'
 import { useState } from "react"
+import { auth } from 'config/firebase'
 
 export default function Signin() {
   const [message, setMessage] = useState(null)
 
   const handleReset = ({ email }) => {
     console.log(email)
-    sendPasswordResetEmail(getAuth(), email)
+    sendPasswordResetEmail(auth, email)
       .then((res) => {
         console.log('res', res)
         setMessage({

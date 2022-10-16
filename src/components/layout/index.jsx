@@ -6,6 +6,9 @@ import {
 } from '@heroicons/react/solid'
 import { getAuth, signOut } from 'firebase/auth'
 import { Link, useNavigate } from 'react-router-dom'
+import { authUserAtom } from "store"
+import { useRecoilValue } from "recoil"
+import noAvatar from 'assets/no-avatar.png'
 
 const navigation = [
   { name: 'Home', href: '/dashboard', icon: HomeIcon, current: true },
@@ -23,6 +26,7 @@ function classNames(...classes) {
 
 export default function Layout({ children }) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
+  const user = useRecoilValue(authUserAtom)
   const navigate = useNavigate()
 
   const handleSignout = () => {
@@ -32,6 +36,8 @@ export default function Layout({ children }) {
       // An error happened.
     });
   }
+
+  console.log('===', user)
 
   return (
     <div className="h-screen flex overflow-hidden bg-white">
@@ -171,12 +177,12 @@ export default function Layout({ children }) {
                         <span className="flex min-w-0 items-center justify-between space-x-3">
                           <img
                             className="w-10 h-10 bg-gray-300 rounded-full flex-shrink-0"
-                            src="https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80"
+                            src={user.avatar ? user.avatar : noAvatar}
                             alt=""
                           />
                           <span className="flex-1 flex flex-col min-w-0">
-                            <span className="text-gray-900 text-sm font-medium truncate">Jessy Schwarz</span>
-                            <span className="text-gray-500 text-sm truncate">@jessyschwarz</span>
+                            <span className="text-gray-900 text-sm font-medium truncate">{user.name}</span>
+                            <span className="text-gray-500 text-sm truncate">{user.email}</span>
                           </span>
                         </span>
                       </span>
@@ -387,7 +393,7 @@ export default function Layout({ children }) {
                     <div>
                       <Menu.Button className="max-w-xs bg-white flex items-center text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                         <span className="sr-only">Open user menu</span>
-                        <img className="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80" alt="" />
+                        <img className="h-8 w-8 rounded-full" src={user.avatar ? user.avatar : noAvatar} alt="" />
                       </Menu.Button>
                     </div>
                     <Transition
