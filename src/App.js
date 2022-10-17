@@ -16,8 +16,8 @@ const App = () => {
     <RecoilRoot>
       <Routes>
         <Route path="/dashboard" exact element={<Protected><Dashboard /></Protected>} />
-        <Route path="/projects/1" exact element={<Protected><Project /></Protected>} />
-        <Route path="/projects/1/condition" exact element={<Protected><Condition /></Protected>} />
+        <Route path="/projects/:projectId" exact element={<Protected><Project /></Protected>} />
+        <Route path="/projects/:projectId/:conditionId" exact element={<Protected><Condition /></Protected>} />
 
         <Route path="/signin" exact element={<Signin />} />
         <Route path="/forgot-password" exact element={<ForgotPassword />} />

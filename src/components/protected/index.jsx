@@ -22,15 +22,12 @@ const Protected = ({children}) => {
 
     const unsubscribe = onAuthStateChanged(getAuth(), async (auth) => {
       if (auth?.uid) {
-        console.log('auth state logged in');
         flagIsPageLoaded = true;
         
         const userData = await getDoc(doc(db, "users", auth.uid))
-        console.log('userData from firestore', userData.data())
         setAuthUser(userData.data())
         setAuth(auth)
       } else {
-        console.log('auth state logged out');
         if (!flagIsPageLoaded) {
           navigate('/signin')
         }

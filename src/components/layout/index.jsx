@@ -24,7 +24,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function Layout({ children }) {
+export default function Layout({ loading = false, children }) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const user = useRecoilValue(authUserAtom)
   const navigate = useNavigate()
@@ -37,9 +37,7 @@ export default function Layout({ children }) {
     });
   }
 
-  console.log('===', user)
-
-  return (
+  return loading ? '' : (
     <div className="h-screen flex overflow-hidden bg-white">
       <Transition.Root show={sidebarOpen} as={Fragment}>
         <Dialog
