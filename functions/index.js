@@ -1,20 +1,27 @@
 const functions = require("firebase-functions");
 const admin = require('firebase-admin');
-const regionalFunctions = functions.region('asia-northeast3');
 
-admin.initializeApp();
+admin.initializeApp()
 
-exports.createUser = regionalFunctions.https.onRequest((request, response) => {
-  admin.auth.createUser({
-    email: 'user@example.com',
-    emailVerified: true,
-    password: 'secretPassword',
-  })
-  .then((userRecord) => {
-    // See the UserRecord reference doc for the contents of userRecord.
-    console.log('Successfully created new user:');
+const db = admin.firestore()
+
+exports.createUser = functions.https.onCall((data, context) => {
+  return admin.auth().createUser(data)
+  .then(async (res) => {
+    console.log('userRecord', res)
+    const newUserData = {
+      email: data.email,
+      name: data.displayName ? data.displayName : 'Default User',
+      role: 'user',
+      avatar: null,
+    }
+    db.collection('users').add(newUserData)
+    return true
   })
   .catch((error) => {
-    console.log('Error creating new user:', error);
+    throw new functions.https.HttpsError(
+      'failed-precondition',
+      error
+    )
   });
 })

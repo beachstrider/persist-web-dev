@@ -4,7 +4,7 @@ import Layout from '../components/layout'
 import { Link, useParams } from 'react-router-dom'
 import * as xlsx from 'xlsx'
 import { collection, doc, setDoc, query, where, getDocs } from "firebase/firestore"
-import { db } from 'config/firebase'
+import { db, auth } from 'config/firebase'
 import moment from "moment"
 
 export default function Default() {
@@ -12,7 +12,7 @@ export default function Default() {
   const [users, setUsers] = useState([])
 
   const fetch = async () => {
-    const q = query(collection(db, "users"), where("role", "!=", "admin"));
+    const q = query(collection(db, "users"), where("email", "!=", auth.currentUser.email));
 
     const querySnapshot = await getDocs(q);
     let _users = []
@@ -107,11 +107,11 @@ export default function Default() {
                         </span>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 uppercase">{user.role}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                      {/* <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                         <a href="#" className="text-red-600 hover:text-red-900">
                           Delete
                         </a>
-                      </td>
+                      </td> */}
                     </tr>
                   ))}
                 </tbody>

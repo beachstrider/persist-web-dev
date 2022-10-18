@@ -1,23 +1,45 @@
 import { createRef, useState, useEffect } from 'react'
-import { PlusIcon } from '@heroicons/react/outline'
+import { XCircleIcon } from '@heroicons/react/outline'
 import Layout from '../components/layout'
-import { Link } from 'react-router-dom'
-import * as xlsx from 'xlsx'
-import { collection, doc, getDoc, setDoc, query, where, getDocs } from "firebase/firestore"
-import { auth, db } from 'config/firebase'
-import moment from "moment"
+import { useNavigate } from 'react-router-dom'
+import { functions } from 'config/firebase'
+import { httpsCallable } from "firebase/functions";
 
 export default function Default() {
-  const create = (user) => {
-    console.log('user', user)
+  const [error, setError] = useState(false)
+  
+  const navigate = useNavigate()
+
+  const create = async (user) => {
+    const createUser = httpsCallable(functions, 'createUser');
+    createUser(user)
+      .then((result) => {
+        navigate('/users')
+      })
+      .catch((error) => {
+        console.log(error)
+        setError(error.message)
+      })
   }
   return (
     <Layout title="Create User">
       <form className="space-y-6" action="#" method="POST" onSubmit={(e) => {
-            e.preventDefault()
-            create({name: e.target.name.value, email: e.target.email.value, password: e.target.password.value })
-          }}>
-        <div className="w-full max-w-xs mx-auto pt-60">
+        e.preventDefault()
+        create({ displayName: e.target.name.value, email: e.target.email.value, password: e.target.password.value, emailVerified: true })
+      }}>
+        <div className="w-full max-w-sm mx-auto pt-60">
+          {error &&
+            <div className="mt-4 rounded-md bg-red-50 p-4">
+              <div className="flex">
+                <div className="flex-shrink-0">
+                  <XCircleIcon className="h-5 w-5 text-red-400" aria-hidden="true" />
+                </div>
+                <div className="ml-3">
+                  <h3 className="text-sm font-medium text-red-800">{error}</h3>
+                </div>
+              </div>
+            </div>
+          }
           <div className="mt-6">
             <label htmlFor="name" className="block text-sm font-medium text-gray-700">
               Name
