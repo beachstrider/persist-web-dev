@@ -1,6 +1,6 @@
 import { Fragment, useState } from 'react'
 import { Dialog, Menu, Transition } from '@headlessui/react'
-import { HomeIcon, MenuAlt1Icon, XIcon, BellIcon } from '@heroicons/react/outline'
+import { HomeIcon, MenuAlt1Icon, XIcon, BellIcon, UsersIcon, CollectionIcon } from '@heroicons/react/outline'
 import {
   SearchIcon,
 } from '@heroicons/react/solid'
@@ -9,10 +9,6 @@ import { Link, useNavigate } from 'react-router-dom'
 import { authUserAtom } from "store"
 import { useRecoilValue } from "recoil"
 import noAvatar from 'assets/no-avatar.png'
-
-const navigation = [
-  { name: 'Home', href: '/dashboard', icon: HomeIcon, current: true },
-]
 
 const userNavigation = [
   { name: 'Your Profile', href: '#' },
@@ -24,7 +20,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function Layout({ loading = false, children }) {
+export default function Layout({ loading = false, title = "No Titled Page", children }) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const user = useRecoilValue(authUserAtom)
   const navigate = useNavigate()
@@ -36,6 +32,19 @@ export default function Layout({ loading = false, children }) {
       // An error happened.
     });
   }
+
+  const navigation = 
+    user.role === 'admin' ? 
+    [
+      { name: 'Home', href: '/', icon: HomeIcon },
+      { name: 'Users', href: '/users', icon: UsersIcon },
+      { name: 'My Projects', href: `/${user?.uid}`, icon: CollectionIcon },
+    ]
+    :
+    [
+      { name: 'Home', href: '/', icon: HomeIcon },
+      { name: 'My Projects', href: `/${user?.uid}`, icon: CollectionIcon },
+    ] 
 
   return loading ? '' : (
     <div className="h-screen flex overflow-hidden bg-white">
@@ -376,7 +385,7 @@ export default function Layout({ loading = false, children }) {
           {/* Page title & actions */}
           <div className="border-b border-gray-200 px-4 py-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8">
             <div className="flex-1 min-w-0">
-              <h1 className="text-lg font-medium leading-6 text-gray-900 sm:truncate">Dashboard</h1>
+              <h1 className="text-lg font-medium leading-6 text-gray-900 sm:truncate">{title}</h1>
             </div>
             <div className="mt-4 flex sm:mt-0 sm:ml-4">
               <button className="bg-white p-1 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">

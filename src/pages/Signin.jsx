@@ -23,12 +23,12 @@ export default function Signin() {
           const newUserData = {
             email: user.email,
             name: user.displayName ? user.displayName : 'Default User',
+            role: 'user',
             avatar: null,
-            projects: []
           }
           await handleMakeUser(user.uid, newUserData)
         }
-        navigate('/dashboard')
+        navigate('/')
         // ...
       })
       .catch((err) => {

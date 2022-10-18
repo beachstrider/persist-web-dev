@@ -25,7 +25,7 @@ const Protected = ({children}) => {
         flagIsPageLoaded = true;
         
         const userData = await getDoc(doc(db, "users", auth.uid))
-        setAuthUser(userData.data())
+        setAuthUser({ uid: auth.uid, ...userData.data() })
         setAuth(auth)
       } else {
         if (!flagIsPageLoaded) {

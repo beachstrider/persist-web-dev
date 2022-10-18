@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "persist-ai-client-portal",
+  "private_key_id": "9fe9665917b5ccba4412cb8d228bc83d2e08c3de",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCoxZUWSREjWut1\nu1kwsozzdnuaA8nU2TabkyROwRjN1B+i5q1oQX0e5zBnt2JvMJj3/P+KWnw6cgbF\nTXQO7G8KauObemnRidj8+OONZ+sPZyOGXCBnybXgHbgGrp+p5Y/c5NOrq1diRCAc\nyCez7eCUv1jkZtir5ExeHSIaYf9x4eBeBap4xqMEER+V/pNqw5a08e/KMd/9kHbE\nn+/Euc+zPvLZGl+/BXArqf9s0Z7pHVJlFeDgHukvk10uMHu3FCwUdc3QKtd5d+M8\nr296CeRD0j+arYFnzUTFNF8lvs4Rb5xGsHIEZ8S2Sgtd+32l8kBLbs9vBK60xIw+\nyG/4UvYxAgMBAAECggEACW0pOMKdnl9Y9sU/O9wCKURDLrDS2mSEMzvsf4lTmcX0\n+yXWFkRPoSztoEJe8SnKRnIbIgKwLPnC0Oz0vDNml5LtKelEPSnNTMJYP9T3vR9Q\nLbRKM0/R7K3OQjHJTU2LC638eFp4Zc67Ki5gANHKzRYTqISpyg6FGS3YgneaI1Ww\nmBD3wjDnagzKofGqM22TwkZNnQ9GY1yI4egiz1O3iAOgQ+6mKpVKtk2C+CHDGPC0\nEsMZmDnMWksJJx8VaKB86cN5DxDv7KB8San5Nl54n+ptkYKeB1aqskfEPO4gZsAb\nTdFSz9H+sjGvQi47zNX6n5ntTHT9NZBcMtNTsYk9AQKBgQDS42IOUU9iAZWz1jt7\nNxzX4t9nXw6T2OiWCbhc7Bt23lu5HNX+GfsHAyU3Pj385Afg9pcr4obxnYNo51Vw\nq66X7qzjmoNcEIjDEZkLIgaIKfdr3Ysf7ostyuXbTta7vOemIBi10583KZ/Jvz8o\nJ4nXJ6UNefmIkYR1QOAu0lhtMQKBgQDM39RJBv2XV2W/4CO8wcvcMP6Rv0jFE5nV\nhJ57qQdm+2c0DIjXxP79ilzEiQGr5J7mINbzhsYW4x9rHo0PsHkKTTqAJ/kboqxi\nsJZxMDFp6afhDZIaNgEjQEOGXYS7x1YkBqYZHjct0rceiwA6BWtPwppO2nge/L/i\nvGRY/SzZAQKBgAeydOnA3fzdwfEGaLVelZbrmOvU9FtBF3wibrA1jesQwphHDShx\nGlBvNPSHOQv55q+3UF0xr2syLJGvn9a07XJuK7FC+nhpwhQcmFFntIVTwswVEfbg\nZgQN28XdYskHZA0ULtK0HqOMyWA7srpsdwN7VvLe+NSbOxJsg8IxuziBAoGBAKTS\nqmH6GsjIClb8xyOTsiO60wOEpdHPfCK4aBxKl2b1eUj5kJoupYpq50lChDK7Yk74\nOpZ/ZhyBqwQt9wSZUDfGe/sgrZvbGt7m/JGhWQ/BaEt59IHb0rx+dhTCZggATb/8\nDWMF2RSngqUy5QLI21W21Rf9UUh0xRdvwzeIr60BAoGAEta/OEEWSC6NDjzCZQ5J\nB2/lPaczSYzUqDPUFl+7cHGgKiVoVKhhaCWWJ76fvIgAbcc9nLzSOfWz4JUJKD54\noiVVOtI3gnuS5gSLrHk3GV5FOfw+s4iqjD/IjR5txaumfQBAvxZqyONqdbrbpIiR\nlxW1GRF0z42xeJq40NemXcw=\n-----END PRIVATE KEY-----\n",
+  "client_email": "persist-ai-client-portal@appspot.gserviceaccount.com",
+  "client_id": "106536803851862104961",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/persist-ai-client-portal%40appspot.gserviceaccount.com"
+}

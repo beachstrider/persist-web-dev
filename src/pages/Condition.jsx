@@ -1,13 +1,11 @@
 import { useEffect, useState } from 'react'
-import { DownloadIcon } from '@heroicons/react/outline'
 import Layout from '../components/layout'
 import { Link, useParams } from 'react-router-dom'
 import { collection, doc, getDoc, getDocs, query, where } from "firebase/firestore"
-import { auth, db } from "config/firebase"
-import moment from "moment"
+import { db } from "config/firebase"
 
 export default function Default() {
-  const { projectId, conditionId } = useParams()
+  const { userId, projectId, conditionId } = useParams()
   const [condition, setCondition] = useState()
 
   const fetchProject = async () => {
@@ -28,7 +26,7 @@ export default function Default() {
 
 
   return (
-    <Layout>
+    <Layout title="Condition Details">
       { condition ? (
         <>
           <div className="mx-3 mt-6 border border-gray-200 overflow-hidden sm:rounded-lg">

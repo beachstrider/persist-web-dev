@@ -1,0 +1,134 @@
+[debug] [2022-10-18T11:21:33.356Z] ----------------------------------------------------------------------
+[debug] [2022-10-18T11:21:33.358Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Administrator\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js emulators:start
+[debug] [2022-10-18T11:21:33.358Z] CLI Version:   11.14.1
+[debug] [2022-10-18T11:21:33.358Z] Platform:      win32
+[debug] [2022-10-18T11:21:33.358Z] Node Version:  v16.13.0
+[debug] [2022-10-18T11:21:33.359Z] Time:          Tue Oct 18 2022 20:21:33 GMT+0900 (Japan Standard Time)
+[debug] [2022-10-18T11:21:33.360Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2022-10-18T11:21:33.523Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2022-10-18T11:21:33.523Z] > authorizing via signed-in user (mernstackdev729@gmail.com)
+[debug] [2022-10-18T11:21:33.670Z] java version "19" 2022-09-20
+
+[debug] [2022-10-18T11:21:33.672Z] Java(TM) SE Runtime Environment (build 19+36-2238)
+Java HotSpot(TM) 64-Bit Server VM (build 19+36-2238, mixed mode, sharing)
+
+[debug] [2022-10-18T11:21:33.719Z] Parsed Java major version: 19
+[info] i  emulators: Starting emulators: auth, functions, firestore, database, hosting, pubsub, storage, eventarc {"metadata":{"emulator":{"name":"hub"},"message":"Starting emulators: auth, functions, firestore, database, hosting, pubsub, storage, eventarc"}}
+[debug] [2022-10-18T11:21:33.740Z] [hub] writing locator at C:\Users\ADMINI~1\AppData\Local\Temp\hub-persist-ai-client-portal.json
+[info] +  functions: Using node@16 from host. {"metadata":{"emulator":{"name":"functions"},"message":"Using node@16 from host."}}
+[debug] [2022-10-18T11:21:33.801Z] defaultcredentials: writing to file C:\Users\Administrator\AppData\Roaming\firebase\mernstackdev729_gmail_com_application_default_credentials.json
+[debug] [2022-10-18T11:21:33.804Z] Setting GAC to C:\Users\Administrator\AppData\Roaming\firebase\mernstackdev729_gmail_com_application_default_credentials.json {"metadata":{"emulator":{"name":"functions"},"message":"Setting GAC to C:\\Users\\Administrator\\AppData\\Roaming\\firebase\\mernstackdev729_gmail_com_application_default_credentials.json"}}
+[debug] [2022-10-18T11:21:33.807Z] > refreshing access token with scopes: []
+[debug] [2022-10-18T11:21:33.810Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2022-10-18T11:21:33.810Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2022-10-18T11:21:34.360Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2022-10-18T11:21:34.360Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2022-10-18T11:21:34.533Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/persist-ai-client-portal/adminSdkConfig [none]
+[debug] [2022-10-18T11:21:35.373Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/persist-ai-client-portal/adminSdkConfig 200
+[debug] [2022-10-18T11:21:35.373Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/persist-ai-client-portal/adminSdkConfig {"projectId":"persist-ai-client-portal","databaseURL":"https://persist-ai-client-portal-default-rtdb.firebaseio.com","storageBucket":"persist-ai-client-portal.appspot.com","locationId":"us-central"}
+[debug] [2022-10-18T11:21:35.491Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"firestore"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2022-10-18T11:21:35.491Z] Ignoring unsupported arg: single_project_mode_error {"metadata":{"emulator":{"name":"firestore"},"message":"Ignoring unsupported arg: single_project_mode_error"}}
+[debug] [2022-10-18T11:21:35.491Z] Starting Firestore Emulator with command {"binary":"java","args":["-Dgoogle.cloud_firestore.debug_log_level=FINE","-Duser.language=en","-jar","C:\\Users\\Administrator\\.cache\\firebase\\emulators\\cloud-firestore-emulator-v1.15.1.jar","--host","localhost","--port",8080,"--websocket_port",9150,"--project_id","persist-ai-client-portal","--rules","E:\\persist-web-dev\\firestore.rules","--single_project_mode",true,"--functions_emulator","localhost:5001"],"optionalArgs":["port","webchannel_port","host","rules","websocket_port","functions_emulator","seed_from_export","project_id","single_project_mode"],"joinArgs":false} {"metadata":{"emulator":{"name":"firestore"},"message":"Starting Firestore Emulator with command {\"binary\":\"java\",\"args\":[\"-Dgoogle.cloud_firestore.debug_log_level=FINE\",\"-Duser.language=en\",\"-jar\",\"C:\\\\Users\\\\Administrator\\\\.cache\\\\firebase\\\\emulators\\\\cloud-firestore-emulator-v1.15.1.jar\",\"--host\",\"localhost\",\"--port\",8080,\"--websocket_port\",9150,\"--project_id\",\"persist-ai-client-portal\",\"--rules\",\"E:\\\\persist-web-dev\\\\firestore.rules\",\"--single_project_mode\",true,\"--functions_emulator\",\"localhost:5001\"],\"optionalArgs\":[\"port\",\"webchannel_port\",\"host\",\"rules\",\"websocket_port\",\"functions_emulator\",\"seed_from_export\",\"project_id\",\"single_project_mode\"],\"joinArgs\":false}"}}
+[info] i  firestore: Firestore Emulator logging to firestore-debug.log {"metadata":{"emulator":{"name":"firestore"},"message":"Firestore Emulator logging to \u001b[1mfirestore-debug.log\u001b[22m"}}
+[info] +  firestore: Firestore Emulator UI websocket is running on 9150. {"metadata":{"emulator":{"name":"firestore"},"message":"Firestore Emulator UI websocket is running on 9150."}}
+[debug] [2022-10-18T11:21:45.975Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/persist-ai-client-portal [none]
+[debug] [2022-10-18T11:21:46.621Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/persist-ai-client-portal 200
+[debug] [2022-10-18T11:21:46.622Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/persist-ai-client-portal {"projectId":"persist-ai-client-portal","projectNumber":"283759597777","displayName":"Persist AI Client Portal","name":"projects/persist-ai-client-portal","resources":{"hostingSite":"persist-ai-client-portal","realtimeDatabaseInstance":"persist-ai-client-portal-default-rtdb","storageBucket":"persist-ai-client-portal.appspot.com","locationId":"us-central"},"state":"ACTIVE","etag":"1_d47851c8-493b-48c6-8d85-59dbb128bb88"}
+[debug] [2022-10-18T11:21:46.624Z] database rules config:  [{"instance":"persist-ai-client-portal-default-rtdb","rules":"E:\\persist-web-dev\\database.rules.json"}]
+[debug] [2022-10-18T11:21:46.639Z] Ignoring unsupported arg: projectId {"metadata":{"emulator":{"name":"database"},"message":"Ignoring unsupported arg: projectId"}}
+[debug] [2022-10-18T11:21:46.640Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"database"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2022-10-18T11:21:46.640Z] Ignoring unsupported arg: rules {"metadata":{"emulator":{"name":"database"},"message":"Ignoring unsupported arg: rules"}}
+[debug] [2022-10-18T11:21:46.641Z] Starting Database Emulator with command {"binary":"java","args":["-Duser.language=en","-jar","C:\\Users\\Administrator\\.cache\\firebase\\emulators\\firebase-database-emulator-v4.9.0.jar","--host","localhost","--port",9000,"--functions_emulator_host","localhost","--functions_emulator_port",5001],"optionalArgs":["port","host","functions_emulator_port","functions_emulator_host"],"joinArgs":false} {"metadata":{"emulator":{"name":"database"},"message":"Starting Database Emulator with command {\"binary\":\"java\",\"args\":[\"-Duser.language=en\",\"-jar\",\"C:\\\\Users\\\\Administrator\\\\.cache\\\\firebase\\\\emulators\\\\firebase-database-emulator-v4.9.0.jar\",\"--host\",\"localhost\",\"--port\",9000,\"--functions_emulator_host\",\"localhost\",\"--functions_emulator_port\",5001],\"optionalArgs\":[\"port\",\"host\",\"functions_emulator_port\",\"functions_emulator_host\"],\"joinArgs\":false}"}}
+[info] i  database: Database Emulator logging to database-debug.log {"metadata":{"emulator":{"name":"database"},"message":"Database Emulator logging to \u001b[1mdatabase-debug.log\u001b[22m"}}
+[debug] [2022-10-18T11:22:01.559Z] Ignoring unsupported arg: projectId {"metadata":{"emulator":{"name":"pubsub"},"message":"Ignoring unsupported arg: projectId"}}
+[debug] [2022-10-18T11:22:01.560Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"pubsub"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2022-10-18T11:22:01.560Z] Starting Pub/Sub Emulator with command {"binary":"C:\\Users\\Administrator\\.cache\\firebase\\emulators\\pubsub-emulator-0.1.0\\pubsub-emulator\\bin\\cloud-pubsub-emulator.bat","args":["--host=localhost","--port=8085"],"optionalArgs":["port","host"],"joinArgs":true} {"metadata":{"emulator":{"name":"pubsub"},"message":"Starting Pub/Sub Emulator with command {\"binary\":\"C:\\\\Users\\\\Administrator\\\\.cache\\\\firebase\\\\emulators\\\\pubsub-emulator-0.1.0\\\\pubsub-emulator\\\\bin\\\\cloud-pubsub-emulator.bat\",\"args\":[\"--host=localhost\",\"--port=8085\"],\"optionalArgs\":[\"port\",\"host\"],\"joinArgs\":true}"}}
+[info] i  pubsub: Pub/Sub Emulator logging to pubsub-debug.log {"metadata":{"emulator":{"name":"pubsub"},"message":"Pub/Sub Emulator logging to \u001b[1mpubsub-debug.log\u001b[22m"}}
+[debug] [2022-10-18T11:22:03.185Z] Ignoring unsupported arg: port {"metadata":{"emulator":{"name":"storage"},"message":"Ignoring unsupported arg: port"}}
+[debug] [2022-10-18T11:22:04.520Z] Temp file directory for storage emulator: C:\Users\ADMINI~1\AppData\Local\Temp/firebase/storage/blobs {"metadata":{"emulator":{"name":"storage"},"message":"Temp file directory for storage emulator: C:\\Users\\ADMINI~1\\AppData\\Local\\Temp/firebase/storage/blobs"}}
+[debug] [2022-10-18T11:22:04.528Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/persist-ai-client-portal/sites 
+[debug] [2022-10-18T11:22:06.037Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/persist-ai-client-portal/sites 200
+[debug] [2022-10-18T11:22:06.037Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/persist-ai-client-portal/sites {"sites":[{"name":"projects/persist-ai-client-portal/sites/persist-ai-client-portal","defaultUrl":"https://persist-ai-client-portal.web.app","appId":"1:283759597777:web:9d3dd64f031701f5b78df0","type":"DEFAULT_SITE"}]}
+[debug] [2022-10-18T11:22:06.038Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/persist-ai-client-portal/webApps/1:283759597777:web:9d3dd64f031701f5b78df0/config [none]
+[debug] [2022-10-18T11:22:07.457Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/persist-ai-client-portal/webApps/1:283759597777:web:9d3dd64f031701f5b78df0/config 200
+[debug] [2022-10-18T11:22:07.457Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/persist-ai-client-portal/webApps/1:283759597777:web:9d3dd64f031701f5b78df0/config {"projectId":"persist-ai-client-portal","appId":"1:283759597777:web:9d3dd64f031701f5b78df0","databaseURL":"https://persist-ai-client-portal-default-rtdb.firebaseio.com","storageBucket":"persist-ai-client-portal.appspot.com","locationId":"us-central","apiKey":"AIzaSyCBY7zvf3f8h7JdH2-iWZ1_lZgNJeaKWPE","authDomain":"persist-ai-client-portal.firebaseapp.com","messagingSenderId":"283759597777","measurementId":"G-8K6KL2YCQR"}
+[info] i  hosting: Serving hosting files from: build {"metadata":{"emulator":{"name":"hosting"},"message":"Serving hosting files from: \u001b[1mbuild\u001b[22m"}}
+[info] +  hosting: Local server: http://localhost:5000 {"metadata":{"emulator":{"name":"hosting"},"message":"Local server: \u001b[4m\u001b[1mhttp://localhost:5000\u001b[22m\u001b[24m"}}
+[debug] [2022-10-18T11:22:07.661Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"ui"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2022-10-18T11:22:07.661Z] Ignoring unsupported arg: port {"metadata":{"emulator":{"name":"ui"},"message":"Ignoring unsupported arg: port"}}
+[debug] [2022-10-18T11:22:07.661Z] Starting Emulator UI with command {"binary":"node","args":["C:\\Users\\Administrator\\.cache\\firebase\\emulators\\ui-v1.10.0\\server\\server.js"],"optionalArgs":[],"joinArgs":false} {"metadata":{"emulator":{"name":"ui"},"message":"Starting Emulator UI with command {\"binary\":\"node\",\"args\":[\"C:\\\\Users\\\\Administrator\\\\.cache\\\\firebase\\\\emulators\\\\ui-v1.10.0\\\\server\\\\server.js\"],\"optionalArgs\":[],\"joinArgs\":false}"}}
+[info] i  ui: Emulator UI logging to ui-debug.log {"metadata":{"emulator":{"name":"ui"},"message":"Emulator UI logging to \u001b[1mui-debug.log\u001b[22m"}}
+[debug] [2022-10-18T11:22:07.892Z] Web / API server started at localhost:4000
+ {"metadata":{"emulator":{"name":"ui"},"message":"Web / API server started at localhost:4000\n"}}
+[info] i  functions: Watching "E:\persist-web-dev\functions" for Cloud Functions... {"metadata":{"emulator":{"name":"functions"},"message":"Watching \"E:\\persist-web-dev\\functions\" for Cloud Functions..."}}
+[debug] [2022-10-18T11:22:07.936Z] Validating nodejs source
+[warn] !  functions: package.json indicates an outdated version of firebase-functions. Please upgrade using npm install --save firebase-functions@latest in your functions directory. 
+[warn] !  functions: Please note that there will be breaking changes when you upgrade. 
+[debug] [2022-10-18T11:22:11.101Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "serve": "firebase emulators:start --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "16"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "firebase-admin": "^10.0.2",
+    "firebase-functions": "^3.18.0"
+  },
+  "devDependencies": {
+    "firebase-functions-test": "^0.2.0"
+  },
+  "private": true
+}
+[debug] [2022-10-18T11:22:11.102Z] Building nodejs source
+[debug] [2022-10-18T11:22:11.102Z] Analyzing nodejs backend spec
+[debug] [2022-10-18T11:22:11.104Z] Could not find functions.yaml. Must use http discovery
+[debug] [2022-10-18T11:22:11.753Z] Serving at port 9005
+
+[debug] [2022-10-18T11:22:11.895Z] Got response from /__/functions.yaml {"endpoints":{"createUser":{"platform":"gcfv1","region":["asia-northeast3"],"httpsTrigger":{},"entryPoint":"createUser"}},"specVersion":"v1alpha1","requiredAPIs":[]}
+[debug] [2022-10-18T11:22:11.901Z] shutdown requested via /__/quitquitquit
+
+[info] +  functions: Loaded functions definitions from source: createUser. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: createUser."}}
+[info] +  functions[asia-northeast3-createUser]: http function initialized (http://localhost:5001/persist-ai-client-portal/asia-northeast3/createUser). {"metadata":{"emulator":{"name":"functions"},"message":"\u001b[1mhttp\u001b[22m function initialized (http://localhost:5001/persist-ai-client-portal/asia-northeast3/createUser)."}}
+[debug] [2022-10-18T11:22:11.921Z] >>> [apiv2][query] PUT http://localhost:9000/.settings/rules.json ns=persist-ai-client-portal-default-rtdb
+[debug] [2022-10-18T11:22:11.921Z] >>> [apiv2][body] PUT http://localhost:9000/.settings/rules.json "{\n  /* Visit https://firebase.google.com/docs/database/security to learn more about security rules. */\n  \"rules\": {\n    \".read\": false,\n    \".write\": false\n  }\n}"
+[debug] [2022-10-18T11:22:12.892Z] <<< [apiv2][status] PUT http://localhost:9000/.settings/rules.json 200
+[debug] [2022-10-18T11:22:12.892Z] <<< [apiv2][body] PUT http://localhost:9000/.settings/rules.json {"status":"ok"}
+[info] 
+┌─────────────────────────────────────────────────────────────┐
+│ ✔  All emulators ready! It is now safe to connect your app. │
+│ i  View Emulator UI at http://localhost:4000                │
+└─────────────────────────────────────────────────────────────┘
+
+┌────────────────┬────────────────┬─────────────────────────────────┐
+│ Emulator       │ Host:Port      │ View in Emulator UI             │
+├────────────────┼────────────────┼─────────────────────────────────┤
+│ Authentication │ localhost:9099 │ http://localhost:4000/auth      │
+├────────────────┼────────────────┼─────────────────────────────────┤
+│ Functions      │ localhost:5001 │ http://localhost:4000/functions │
+├────────────────┼────────────────┼─────────────────────────────────┤
+│ Firestore      │ localhost:8080 │ http://localhost:4000/firestore │
+├────────────────┼────────────────┼─────────────────────────────────┤
+│ Database       │ localhost:9000 │ http://localhost:4000/database  │
+├────────────────┼────────────────┼─────────────────────────────────┤
+│ Hosting        │ localhost:5000 │ n/a                             │
+├────────────────┼────────────────┼─────────────────────────────────┤
+│ Pub/Sub        │ localhost:8085 │ n/a                             │
+├────────────────┼────────────────┼─────────────────────────────────┤
+│ Storage        │ localhost:9199 │ http://localhost:4000/storage   │
+├────────────────┼────────────────┼─────────────────────────────────┤
+│ Eventarc       │ localhost:9299 │ n/a                             │
+└────────────────┴────────────────┴─────────────────────────────────┘
+  Emulator Hub running at localhost:4400
+  Other reserved ports: 4500, 9150
+
+Issues? Report them at https://github.com/firebase/firebase-tools/issues and attach the *-debug.log files.
+ 

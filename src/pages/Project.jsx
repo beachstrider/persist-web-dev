@@ -7,7 +7,7 @@ import { auth, db } from "config/firebase"
 import moment from "moment"
 
 export default function Default() {
-  const { projectId } = useParams()
+  const { userId, projectId } = useParams()
   const [project, setProject] = useState()
   
   const fetchProject = async () => {
@@ -25,7 +25,7 @@ export default function Default() {
 
   console.log(project)
   return (
-    <Layout>
+    <Layout title="Project Details">
       { project ? (
         <>
           <div className="mx-3 mt-6 border border-gray-200 overflow-hidden sm:rounded-lg">
@@ -92,7 +92,7 @@ export default function Default() {
                     {project.conditionDetails.map((condition, key) => (
                       <tr key={key}>
                         <td className="hidden md:table-cell px-6 py-3 whitespace-nowrap text-sm text-ingido-900">
-                          <Link to={`/projects/${projectId}/${condition["Condition ID"]}`} className="truncate text-indigo-700 hover:text-gray-600">
+                          <Link to={`/${userId}/${projectId}/${condition["Condition ID"]}`} className="truncate text-indigo-700 hover:text-gray-600">
                             {condition["Condition ID"]}
                           </Link>
                         </td>
