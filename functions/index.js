@@ -15,7 +15,22 @@ exports.createUser = functions.https.onCall((data, context) => {
       role: 'user',
       avatar: null,
     }
-    db.collection('users').add(newUserData)
+    await db.collection('users').doc(res.uid).set(newUserData)
+    return true
+  })
+  .catch((error) => {
+    throw new functions.https.HttpsError(
+      'failed-precondition',
+      error
+    )
+  });
+})
+
+exports.deleteUser = functions.https.onCall((data, context) => {
+  return admin.auth().deleteUser(data)
+  .then(async (res) => {
+    console.log('userRecord', res)
+    await db.collection('users').doc(data).delete()
     return true
   })
   .catch((error) => {

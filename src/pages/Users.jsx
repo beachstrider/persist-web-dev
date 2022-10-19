@@ -1,14 +1,13 @@
-import { createRef, useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { PlusIcon } from '@heroicons/react/outline'
 import Layout from '../components/layout'
-import { Link, useParams } from 'react-router-dom'
-import * as xlsx from 'xlsx'
-import { collection, doc, setDoc, query, where, getDocs } from "firebase/firestore"
+import { Link } from 'react-router-dom'
+import { collection, query, where, getDocs } from "firebase/firestore"
 import { db, auth } from 'config/firebase'
-import moment from "moment"
+import { functions } from 'config/firebase'
+import { httpsCallable } from "firebase/functions"
 
 export default function Default() {
-  const fileInputRef = createRef()
   const [users, setUsers] = useState([])
 
   const fetch = async () => {
@@ -26,6 +25,17 @@ export default function Default() {
       ]
     })
     setUsers(_users)
+  }
+
+  const handleDeleteUser = (id) => {
+    const deleteUser = httpsCallable(functions, 'deleteUser')
+    deleteUser(id)
+      .then((result) => {
+        fetch()
+      })
+      .catch((error) => {
+        console.log(error)
+      })
   }
 
   useEffect(() => {
@@ -107,11 +117,11 @@ export default function Default() {
                         </span>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 uppercase">{user.role}</td>
-                      {/* <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                        <a href="#" className="text-red-600 hover:text-red-900">
+                      <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                        <a href="#" onClick={() => handleDeleteUser(user.id)} className="text-red-600 hover:text-red-900">
                           Delete
                         </a>
-                      </td> */}
+                      </td>
                     </tr>
                   ))}
                 </tbody>

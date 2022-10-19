@@ -9,6 +9,7 @@ import moment from "moment"
 import { UploadIcon } from "@heroicons/react/solid"
 import { useRecoilValue } from "recoil"
 import { authUserAtom } from "store"
+import xlsxValidation from "utils/xlsxValidation"
 
 export default function Default() {
   const fileInputRef = createRef()
@@ -30,7 +31,20 @@ export default function Default() {
           conditionDetails: xlsx.utils.sheet_to_json(workbook.Sheets["Condition Details"])
         }
 
-        if(!project.projectInformation.length || !project.conditionDetails.length ) return alert('Wrong sheet type')
+        if(!xlsxValidation(project)) return alert('Wrong sheet type')
+        
+        project.projectInformation.forEach(el => {
+          if(el.Key === "Project Start Date") {
+            if(el.Value === undefined) el.Value = ''
+          }
+        })
+    
+        project.projectInformation.forEach(el => {
+          if(el.Key === "Project End Date") {
+            if(el.Value === undefined) el.Value = ''
+          }
+        })
+
         await setDoc(doc(collection(db, "projects")), project)
         await fetchProjects()
       }
@@ -144,7 +158,8 @@ export default function Default() {
                   </td>
 
                   <td className="px-6 py-3 whitespace-nowrap text-sm text-gray-500">
-                    {moment(project.projectInformation[3].Value.toDate()).format('MM/DD/YYYY')}
+                    {project.projectInformation[3].Value}
+                    {/* {moment(project.projectInformation[3].Value.toDate()).format('MM/DD/YYYY')} */}
                   </td>
                   <td className="px-6 py-3 whitespace-nowrap text-sm text-gray-500">
                     {project.projectInformation[5].Value}

@@ -1,4 +1,4 @@
-import { createRef, useState, useEffect } from 'react'
+import { useState } from 'react'
 import { XCircleIcon } from '@heroicons/react/outline'
 import Layout from '../components/layout'
 import { useNavigate } from 'react-router-dom'
@@ -11,7 +11,7 @@ export default function Default() {
   const navigate = useNavigate()
 
   const create = async (user) => {
-    const createUser = httpsCallable(functions, 'createUser');
+    const createUser = httpsCallable(functions, 'createUser')
     createUser(user)
       .then((result) => {
         navigate('/users')

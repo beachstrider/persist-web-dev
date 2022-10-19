@@ -433,13 +433,12 @@ export default function Layout({ loading = false, title = "No Titled Page", chil
                           </Menu.Item>
                         ))}
                       <Menu.Item>
-                        <a
-                          href="#"
-                          className={'block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100'}
+                        <div
+                          className={'block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer'}
                           onClick={handleSignout}
                         >
                           Sign out
-                        </a>
+                        </div>
                       </Menu.Item>
                       </Menu.Items>
                     </Transition>

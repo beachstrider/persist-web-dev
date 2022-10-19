@@ -5,6 +5,7 @@ import { Link, useParams } from 'react-router-dom'
 import { collection, doc, getDoc, getDocs, query, where } from "firebase/firestore"
 import { auth, db } from "config/firebase"
 import moment from "moment"
+import xlsx from "json-as-xlsx"
 
 export default function Default() {
   const { userId, projectId } = useParams()
@@ -16,6 +17,61 @@ export default function Default() {
     setProject(docSnap.data())
   }
 
+  const handleDownload = (data) => {
+    // data.projectInformation.forEach(el => {
+    //   if(el.Key === "Project Start Date") {
+    //     if(el.Value === null) el.Value = '00/00/0000'
+    //     else el.Value = (moment(el.Value.toDate()).format('MM/DD/YYYY')).toString()
+    //   }
+    // })
+
+    // data.projectInformation.forEach(el => {
+    //   if(el.Key === "Project End Date") {
+    //     if(el.Value === null) el.Value = '00/00/0000'
+    //     else el.Value = (moment(el.Value.toDate()).format('MM/DD/YYYY')).toString()
+    //   }
+    // })
+
+    const content = data.conditionDetails.map(el => {
+      let elementObject = {}
+
+      Object.keys(el).map((el1) => {
+        elementObject[el1] = el[el1]
+
+        return false
+      })
+
+      return elementObject
+    })
+
+    let download = [
+      {
+        sheet: "Project Information",
+        columns: [
+          { label: "Key", value: "Key" },
+          { label: "Value", value: "Value" },
+        ],
+        content: data.projectInformation,
+      },
+      {
+        sheet: "Condition Details",
+        columns: 
+          Object.keys(data.conditionDetails[0]).map((el) => ({ label: el, value: el }))
+        ,
+        content
+      }
+    ]
+    
+    let settings = {
+      fileName: project.projectInformation.find(el => el.Key === "Project ID").Value,
+      extraLength: 3,
+      writeMode: 'writeFile',
+      writeOptions: {},
+    }
+    
+    xlsx(download, settings) 
+  }
+
   useEffect(() => {
     fetchProject()
     return () => {
@@ -24,6 +80,7 @@ export default function Default() {
   }, []);
 
   console.log(project)
+
   return (
     <Layout title="Project Details">
       { project ? (
@@ -40,7 +97,8 @@ export default function Default() {
                 </div>
                 <div className="grid grid-cols-2 mb-3">
                   <div className="text-sm font-medium text-gray-500">Start Date</div>
-                  <div className="mt-1 flex text-sm text-gray-900 sm:mt-0">{moment(project.projectInformation[3].Value.toDate()).format('MM/DD/YYYY')}</div>
+                  <div className="mt-1 flex text-sm text-gray-900 sm:mt-0">{project.projectInformation[3].Value}</div>
+                  {/* <div className="mt-1 flex text-sm text-gray-900 sm:mt-0">{moment(project.projectInformation[3].Value.toDate()).format('MM/DD/YYYY')}</div> */}
                 </div>
                 <div className="grid grid-cols-2 mb-3">
                   <div className="text-sm font-medium text-gray-500">Status</div>
@@ -53,11 +111,12 @@ export default function Default() {
                 <button
                   type="button"
                   className="inline-flex items-center mt-4 px-4 py-2 border border-gray-300 shadow-sm text-base font-medium rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  onClick={() => handleDownload(project)}
                 >
                   <DownloadIcon className="-ml-1 mr-3 h-5 w-5" aria-hidden="true" />
                   <div className='text-left'>
-                    <div>Download Data (.CSV)</div>
-                    <div className="text-xs text-gray-500">Download existing data in a CSV file</div>
+                    <div>Download Data (.XLSX)</div>
+                    <div className="text-xs text-gray-500">Download existing data in a EXCEL file</div>
                   </div>
                 </button>
               </div>
@@ -68,7 +127,7 @@ export default function Default() {
           </div>
 
 
-          <div className="mx-3 mt-6 border border-gray-200 overflow-hidden sm:rounded-lg">
+          <div className="mx-3 mt-6 mb-6 border border-gray-200 overflow-hidden sm:rounded-lg">
             <div className="px-2 py-3 sm:px-6">
               <h3 className="text-md leading-6 font-medium text-gray-900">Project Data</h3>
             </div>
