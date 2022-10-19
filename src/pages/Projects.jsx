@@ -5,11 +5,11 @@ import { Link, useParams } from 'react-router-dom'
 import * as xlsx from 'xlsx'
 import { collection, doc, setDoc, query, where, getDocs } from "firebase/firestore"
 import { db } from 'config/firebase'
-import moment from "moment"
 import { UploadIcon } from "@heroicons/react/solid"
 import { useRecoilValue } from "recoil"
 import { authUserAtom } from "store"
 import xlsxValidation from "utils/xlsxValidation"
+import xlsxAdapt from "utils/xlsxAdapt"
 
 export default function Default() {
   const fileInputRef = createRef()
@@ -25,25 +25,13 @@ export default function Default() {
       reader.onload = async (e) => {
         const data = e.target.result;
         const workbook = xlsx.read(data, { type: "array", cellDates: true });
-        const project = {
+        const project = xlsxAdapt({
           uid: userId,
           projectInformation: xlsx.utils.sheet_to_json(workbook.Sheets["Project Information"]),
           conditionDetails: xlsx.utils.sheet_to_json(workbook.Sheets["Condition Details"])
-        }
+        })
 
         if(!xlsxValidation(project)) return alert('Wrong sheet type')
-        
-        project.projectInformation.forEach(el => {
-          if(el.Key === "Project Start Date") {
-            if(el.Value === undefined) el.Value = ''
-          }
-        })
-    
-        project.projectInformation.forEach(el => {
-          if(el.Key === "Project End Date") {
-            if(el.Value === undefined) el.Value = ''
-          }
-        })
 
         await setDoc(doc(collection(db, "projects")), project)
         await fetchProjects()
@@ -95,8 +83,8 @@ export default function Default() {
             type="button"
             className="ml-2 inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-base font-medium rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             onClick={() => {
-              fileInputRef.current.click()
               fileInputRef.current.value = null
+              fileInputRef.current.click()
             }}
           >
             <UploadIcon className="-ml-1 mr-3 h-5 w-5" aria-hidden="true" />
