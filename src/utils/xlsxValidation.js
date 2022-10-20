@@ -1,26 +1,26 @@
 const xlsxValidation = (data) => {
-  console.log('data===', data)
-
   if(data.projectInformation.length < 1) return false
-
-  if(data.projectInformation[0]["Key"] === undefined) return false
-  if(data.projectInformation[0]["Value"] === undefined) return false
   
-  if(!data.projectInformation.some(el => el.Key === 'Project ID')) return false
-  if(!data.projectInformation.some(el => el.Key === 'Project Name')) return false
-  if(!data.projectInformation.some(el => el.Key === 'Client ID')) return false
-  if(!data.projectInformation.some(el => el.Key === 'Project Start Date')) return false
-  if(!data.projectInformation.some(el => el.Key === 'Project End Date')) return false
-  if(!data.projectInformation.some(el => el.Key === 'Status')) return false
-  if(!data.projectInformation.some(el => el.Key === 'Stage')) return false
-  if(!data.projectInformation.some(el => el.Key === 'Drug Image Link')) return false
-  if(!data.projectInformation.some(el => el.Key === 'Notes')) return false
+  if(!data.projectInformation.some(el => el.key === 'Project ID')) return false
+  if(!data.projectInformation.some(el => el.key === 'Project Name')) return false
+  if(!data.projectInformation.some(el => el.key === 'Client ID')) return false
+  if(!data.projectInformation.some(el => el.key === 'Project Start Date')) return false
+  if(!data.projectInformation.some(el => el.key === 'Project End Date')) return false
+  if(!data.projectInformation.some(el => el.key === 'Status')) return false
+  if(!data.projectInformation.some(el => el.key === 'Stage')) return false
+  if(!data.projectInformation.some(el => el.key === 'Drug Image Link')) return false
+  if(!data.projectInformation.some(el => el.key === 'Notes')) return false
   
   if(data.conditionDetails.length < 1) return false
-  
-  if(data.conditionDetails[0]["Condition ID"] === undefined) return false
-  if(data.conditionDetails[0]["Drug Loading %"] === undefined) return false
-  if(data.conditionDetails[0]["Encapsulation %"] === undefined) return false
+
+  let flagForCond = true
+  data.conditionDetails.forEach(row => {
+    if(!row.cells.some(cell => cell.key === "Condition ID")) flagForCond = false
+    if(!row.cells.some(cell => cell.key === "Drug Loading %")) flagForCond = false
+    if(!row.cells.some(cell => cell.key === "Encapsulation %")) flagForCond = false
+  })
+
+  if(!flagForCond) return false
 
   return true
 }

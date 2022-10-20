@@ -2,15 +2,14 @@ import { useEffect, useState } from 'react'
 import { DownloadIcon } from '@heroicons/react/outline'
 import Layout from '../components/layout'
 import { Link, useParams } from 'react-router-dom'
-import { collection, doc, getDoc, getDocs, query, where } from "firebase/firestore"
-import { auth, db } from "config/firebase"
-import moment from "moment"
-import xlsx from "json-as-xlsx"
+import { doc, getDoc } from "firebase/firestore"
+import { db } from "config/firebase"
+import * as xlsx from 'xlsx'
 
 export default function Default() {
   const { userId, projectId } = useParams()
   const [project, setProject] = useState()
-  
+
   const fetchProject = async () => {
     const docRef = doc(db, "projects", projectId)
     const docSnap = await getDoc(docRef)
@@ -18,64 +17,39 @@ export default function Default() {
   }
 
   const handleDownload = (data) => {
-    // data.projectInformation.forEach(el => {
-    //   if(el.Key === "Project Start Date") {
-    //     if(el.Value === null) el.Value = '00/00/0000'
-    //     else el.Value = (moment(el.Value.toDate()).format('MM/DD/YYYY')).toString()
-    //   }
-    // })
+    const wb = xlsx.utils.book_new()
 
-    // data.projectInformation.forEach(el => {
-    //   if(el.Key === "Project End Date") {
-    //     if(el.Value === null) el.Value = '00/00/0000'
-    //     else el.Value = (moment(el.Value.toDate()).format('MM/DD/YYYY')).toString()
-    //   }
-    // })
-
-    const content = data.conditionDetails.map(el => {
-      let elementObject = {}
-
-      Object.keys(el).map((el1) => {
-        elementObject[el1] = el[el1]
-
-        return false
-      })
-
-      return elementObject
-    })
-
-    let download = [
+    const ws_projectInformation = xlsx.utils.json_to_sheet(
+      data.projectInformation,
       {
-        sheet: "Project Information",
-        columns: [
-          { label: "Key", value: "Key" },
-          { label: "Value", value: "Value" },
-        ],
-        content: data.projectInformation,
-      },
-      {
-        sheet: "Condition Details",
-        columns: 
-          Object.keys(data.conditionDetails[0]).map((el) => ({ label: el, value: el }))
-        ,
-        content
+        header: ["key", "value"],
+        skipHeader: true
       }
-    ]
-    
-    let settings = {
-      fileName: project.projectInformation.find(el => el.Key === "Project ID").Value,
-      extraLength: 3,
-      writeMode: 'writeFile',
-      writeOptions: {},
-    }
-    
-    xlsx(download, settings) 
+    )
+    xlsx.utils.book_append_sheet(wb, ws_projectInformation, "Project Information")
+
+    const ws_conditionDetails = xlsx.utils.json_to_sheet(
+      data.conditionDetails.map(row => {
+        const res = {}
+        row.cells.map(cell => {
+          res[cell.key] = cell.value
+          return false
+        })
+        return res
+      }),
+      {
+        header: data.conditionDetails[0].cells.map(el => el.key),
+      }
+    )
+    xlsx.utils.book_append_sheet(wb, ws_conditionDetails, "Condition Details")
+
+    xlsx.writeFileXLSX(wb, project.projectInformation.find(el => el.key === "Project ID").value + '.xlsx')
   }
 
   useEffect(() => {
     fetchProject()
     return () => {
-      
+
     };
   }, []);
 
@@ -83,31 +57,20 @@ export default function Default() {
 
   return (
     <Layout title="Project Details">
-      { project ? (
+      {project ? (
         <>
           <div className="mx-3 mt-6 border border-gray-200 overflow-hidden sm:rounded-lg">
             <div className="px-2 py-3 sm:px-6">
               <h3 className="text-md leading-6 font-medium text-gray-900">Project Details</h3>
             </div>
-            <div className="grid grid-cols-2 px-6 border-gray-200 px-4 py-5 border-t">
+            <div className="grid grid-cols-2 border-gray-200 px-4 py-5 border-t gap-6">
               <div>
-                <div className="grid grid-cols-2 mb-3">
-                  <div className="text-sm font-medium text-gray-500">Project Number</div>
-                  <div className="mt-1 flex text-sm text-gray-900 sm:mt-0">{project.projectInformation[1].Value}</div>
-                </div>
-                <div className="grid grid-cols-2 mb-3">
-                  <div className="text-sm font-medium text-gray-500">Start Date</div>
-                  <div className="mt-1 flex text-sm text-gray-900 sm:mt-0">{project.projectInformation[3].Value}</div>
-                  {/* <div className="mt-1 flex text-sm text-gray-900 sm:mt-0">{moment(project.projectInformation[3].Value.toDate()).format('MM/DD/YYYY')}</div> */}
-                </div>
-                <div className="grid grid-cols-2 mb-3">
-                  <div className="text-sm font-medium text-gray-500">Status</div>
-                  <div className="mt-1 flex text-sm text-gray-900 sm:mt-0">{project.projectInformation[5].Value}</div>
-                </div>
-                <div className="grid grid-cols-2 mb-3">
-                  <div className="text-sm font-medium text-gray-500">API</div>
-                  <div className="mt-1 flex text-sm text-gray-900 sm:mt-0">{project.projectInformation[6].Value}</div>
-                </div>
+                {project.projectInformation.map((el, key) => (
+                  <div key={key} className="grid grid-cols-3 mb-3">
+                    <div className="text-sm font-medium text-gray-500">{el.key}</div>
+                    <div className="col-span-2 mt-1 flex text-sm text-gray-900 sm:mt-0 truncate">{el.value}</div>
+                  </div>
+                ))}
                 <button
                   type="button"
                   className="inline-flex items-center mt-4 px-4 py-2 border border-gray-300 shadow-sm text-base font-medium rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
@@ -121,7 +84,7 @@ export default function Default() {
                 </button>
               </div>
               <div className="">
-                <img src={project.projectInformation[7].Value} alt="" />
+                <div className="w-80 h-60 bg-black" style={{ background: `url('${project.projectInformation[7].value}')` }} />
               </div>
             </div>
           </div>
@@ -151,17 +114,16 @@ export default function Default() {
                     {project.conditionDetails.map((condition, key) => (
                       <tr key={key}>
                         <td className="hidden md:table-cell px-6 py-3 whitespace-nowrap text-sm text-ingido-900">
-                          <Link to={`/${userId}/${projectId}/${condition["Condition ID"]}`} className="truncate text-indigo-700 hover:text-gray-600">
-                            {condition["Condition ID"]}
+                          <Link to={`/${userId}/${projectId}/${condition.cells[0].value}`} className="truncate text-indigo-700 hover:text-gray-600">
+                            {condition.cells[0].value}
                           </Link>
                         </td>
                         <td className="hidden md:table-cell px-6 py-3 whitespace-nowrap text-sm text-gray-500">
-                          {condition["Drug Loading %"]}
+                          {condition.cells[1].value}
                         </td>
                         <td className="hidden md:table-cell px-6 py-3 whitespace-nowrap text-sm text-gray-500">
-                          {condition["Encapsulation %"]}
+                          {condition.cells[2].value}
                         </td>
-
                       </tr>
                     ))}
                   </tbody>
@@ -172,5 +134,5 @@ export default function Default() {
         </>
       ) : ''}
     </Layout>
-  ) 
+  )
 }

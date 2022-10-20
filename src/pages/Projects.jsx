@@ -27,13 +27,20 @@ export default function Default() {
         const workbook = xlsx.read(data, { type: "array", cellDates: true });
         const project = xlsxAdapt({
           uid: userId,
-          projectInformation: xlsx.utils.sheet_to_json(workbook.Sheets["Project Information"]),
-          conditionDetails: xlsx.utils.sheet_to_json(workbook.Sheets["Condition Details"])
+          projectInformation: xlsx.utils.sheet_to_json(workbook.Sheets["Project Information"], {header: 1}),
+          conditionDetails: xlsx.utils.sheet_to_json(workbook.Sheets["Condition Details"], {header: 1})
         })
 
+        console.log('output===', project)
         if(!xlsxValidation(project)) return alert('Wrong sheet type')
 
-        await setDoc(doc(collection(db, "projects")), project)
+        try {
+
+          await setDoc(doc(db, "projects", project.projectInformation.find(el => el.key === "Project ID").value), project)
+        } catch (error) {
+          console.error(error)
+          alert('Wrong sheet type')
+        }
         await fetchProjects()
       }
     }
@@ -113,25 +120,27 @@ export default function Default() {
           <table className="min-w-full">
             <thead>
               <tr className="border-t border-gray-200">
-                <th className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase r">
+                <th className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase">
                   <span className="lg:pl-2">Project Name</span>
                 </th>
-                <th className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-right text-xs font-medium text-gray-500 uppercase r">
+                <th className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase">
                   Start Date
                 </th>
-                <th className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase r">
+                <th className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase">
+                  End Date
+                </th>
+                <th className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase">
                   Status
                 </th>
-                <th className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-right text-xs font-medium text-gray-500 uppercase r">
+                <th className="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase">
                   Stage
                 </th>
-                <th className="pr-6 py-3 border-b border-gray-200 bg-gray-50 text-right text-xs font-medium text-gray-500 uppercase r" />
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-100">
               {projects.map((project, key) => (
                 <tr key={key}>
-                  <td className="px-6 py-3 max-w-0 w-full whitespace-nowrap text-sm font-medium text-gray-900">
+                  <td className="px-6 py-3 max-w-0 whitespace-nowrap text-sm font-medium text-gray-900">
                     <div className="flex items-center space-x-3 lg:pl-2">
                       <div
                         className={'bg-pink-600 flex-shrink-0 w-2.5 h-2.5 rounded-full'}
@@ -139,21 +148,23 @@ export default function Default() {
                       />
                       <Link to={`/${userId}/${project.id}`} className="truncate hover:text-gray-600">
                         <span>
-                          {project.projectInformation[1].Value}
+                          {project.projectInformation[1].value}
                         </span>
                       </Link>
                     </div>
                   </td>
 
                   <td className="px-6 py-3 whitespace-nowrap text-sm text-gray-500">
-                    {project.projectInformation[3].Value}
-                    {/* {moment(project.projectInformation[3].Value.toDate()).format('MM/DD/YYYY')} */}
+                    {project.projectInformation[3].value}
                   </td>
                   <td className="px-6 py-3 whitespace-nowrap text-sm text-gray-500">
-                    {project.projectInformation[5].Value}
+                    {project.projectInformation[4].value}
                   </td>
-                  <td className="px-6 py-3 whitespace-nowrap text-sm text-gray-500 text-right">
-                    {project.projectInformation[6].Value}
+                  <td className="px-6 py-3 whitespace-nowrap text-sm text-gray-500">
+                    {project.projectInformation[5].value}
+                  </td>
+                  <td className="px-6 py-3 whitespace-nowrap text-sm text-gray-500">
+                    {project.projectInformation[6].value}
                   </td>
 
                 </tr>
