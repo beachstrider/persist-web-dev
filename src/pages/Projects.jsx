@@ -35,8 +35,7 @@ export default function Default() {
         if(!xlsxValidation(project)) return alert('Wrong sheet type')
 
         try {
-
-          await setDoc(doc(db, "projects", project.projectInformation.find(el => el.key === "Project ID").value), project)
+          await setDoc(doc(db, "projects", project.projectInformation.find(el => el.key === "Project ID").value.toString()), project)
         } catch (error) {
           console.error(error)
           alert('Wrong sheet type')
