@@ -74,8 +74,10 @@ export default function Default() {
   return (
     <Layout loading={!projects} title="Projects">
       <div className="px-4 mt-6 sm:px-6 lg:px-8">
-        <button
-          type="button"
+        <a
+          href="mailto:kraman@persist-ai.com"
+          target="_blank"
+          rel="noreferrer"
           className="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-base font-medium rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
         >
           <PlusIcon className="-ml-1 mr-3 h-5 w-5" aria-hidden="true" />
@@ -83,7 +85,7 @@ export default function Default() {
             <div>Start A New Project</div>
             <div className="text-xs text-gray-500">Submit project details & we will follow-up via email</div>
           </div>
-        </button>
+        </a>
         {user.role === 'admin' &&
           <button
             type="button"
